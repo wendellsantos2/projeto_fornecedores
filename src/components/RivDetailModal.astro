@@ -1,0 +1,152 @@
+---
+// RivDetailModal.astro - Modal de Detalhamento Completo da RIV
+---
+
+<div class="modal-backdrop" id="modal-riv-detail" role="dialog" aria-modal="true" aria-labelledby="modal-detail-supplier-title">
+  <div class="modal-dialog">
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <span class="riv-id-badge" id="modal-detail-riv-id">RIV-2026-0000</span>
+        <h2 class="modal-title" id="modal-detail-supplier-title">Nome do Fornecedor</h2>
+        <span id="modal-detail-status-badge" class="status-pill">Status</span>
+      </div>
+      <button class="modal-close-btn" aria-label="Fechar Detalhes" title="Fechar">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+      <!-- 1. Fluxo Visual de 6 Etapas (Stepper) -->
+      <div class="stepper-container">
+        <div class="stepper-header-title">
+          <span>Fluxo do Processo de Homologação</span>
+          <span style="font-size: 0.72rem; color: var(--primary-600); font-weight: 600;">Ciclo Padrão de 6 Etapas</span>
+        </div>
+        <div class="stepper-track" id="modal-stepper-track">
+          <!-- Renderizado dinamicamente via app.js -->
+        </div>
+      </div>
+
+      <!-- 2. Painel SLA da Etapa & Prazo Restante -->
+      <div class="detail-card-panel" style="background: #fafcff; border-color: var(--primary-200);">
+        <div class="panel-header-title">
+          <span style="display: flex; align-items: center; gap: 0.4rem; color: var(--primary-800);">
+            ⏱️ SLA da Etapa & Prazo Restante
+          </span>
+          <span id="modal-detail-sla-badge" class="sla-badge">SLA</span>
+        </div>
+        <div class="sla-progress-box">
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700;">
+            <span style="color: var(--neutral-600);">Progresso do Prazo:</span>
+            <span id="modal-detail-sla-text" style="color: var(--neutral-800);">Restam 14h de 48h</span>
+          </div>
+          <div class="sla-progress-bar-bg">
+            <div id="modal-detail-sla-bar-fill" class="sla-progress-bar-fill fill-green" style="width: 50%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Grid: Dados do Fornecedor & Responsável Atual / Próxima Ação -->
+      <div class="detail-grid-two">
+        <!-- Coluna 1: Dados do Fornecedor -->
+        <div class="detail-card-panel">
+          <div class="panel-header-title">
+            <span>🏢 Dados Cadastrais</span>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">CNPJ</div>
+            <div class="field-value" id="modal-detail-cnpj">-</div>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">Categoria de Fornecimento</div>
+            <div class="field-value" id="modal-detail-categoria">-</div>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">Localização</div>
+            <div class="field-value" id="modal-detail-cidade">-</div>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">Estimativa Anual de Compras</div>
+            <div class="field-value" id="modal-detail-valor" style="color: var(--primary-700);">-</div>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">Contato Comercial</div>
+            <div class="field-value" id="modal-detail-contato" style="font-size: 0.8rem; font-weight: 500;">-</div>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Responsável Atual & Próxima Ação -->
+        <div class="detail-card-panel">
+          <div class="panel-header-title">
+            <span>👤 Responsável & Próxima Ação</span>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">Responsável Atual</div>
+            <div class="field-value" id="modal-detail-responsavel" style="color: var(--neutral-900); font-weight: 700;">-</div>
+          </div>
+          <div class="field-pair">
+            <div class="field-label">E-mail Corporativo</div>
+            <div class="field-value" id="modal-detail-email" style="font-size: 0.8rem; color: var(--primary-600);">-</div>
+          </div>
+          <div class="field-pair" style="margin-top: 0.75rem; background: #ffffff; padding: 0.75rem; border-radius: var(--radius-sm); border-left: 3px solid var(--primary-500);">
+            <div class="field-label" style="color: var(--primary-700); font-weight: 700;">Próxima Ação Necessária:</div>
+            <div class="field-value" id="modal-detail-proxima-acao" style="font-size: 0.84rem; line-height: 1.4; margin-top: 4px;">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Pendências Documentais & Técnicas -->
+      <div class="detail-card-panel">
+        <div class="panel-header-title">
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            📑 Pendências do Processo
+          </span>
+          <button class="btn btn-white btn-sm" id="btn-modal-add-pendencia">
+            + Adicionar Pendência
+          </button>
+        </div>
+        <div id="modal-detail-pendencias-list" class="pendencias-list">
+          <!-- Renderizado dinamicamente via app.js -->
+        </div>
+      </div>
+
+      <!-- 5. Histórico do Processo (Timeline) -->
+      <div class="detail-card-panel">
+        <div class="panel-header-title">
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            📜 Histórico de Auditoria & Tramitações
+          </span>
+          <button class="btn btn-white btn-sm" id="btn-modal-add-audit">
+            + Adicionar Nota
+          </button>
+        </div>
+        <div id="modal-detail-timeline" class="timeline-container">
+          <!-- Renderizado dinamicamente via app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="modal-footer">
+      <button class="btn btn-white btn-sm" id="btn-modal-edit-riv">
+        ✏️ Editar Dados da RIV
+      </button>
+
+      <button class="btn btn-white btn-sm" id="btn-modal-back-stage" style="display: none; color: #b45309;">
+        ⬅ Retornar Etapa
+      </button>
+
+      <button class="btn btn-primary" id="btn-modal-advance-stage">
+        Avançar para Próxima Etapa ➔
+      </button>
+
+      <button class="btn btn-secondary btn-modal-cancel">
+        Fechar
+      </button>
+    </div>
+  </div>
+</div>

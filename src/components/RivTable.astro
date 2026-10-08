@@ -1,0 +1,35 @@
+---
+// RivTable.astro - Tabela de Consulta e Gestão de RIVs
+---
+
+<div class="table-container" id="view-table-container">
+  <div class="table-header-bar">
+    <div class="table-count-label">
+      Registros Encontrados:
+      <span class="table-count-badge" id="table-records-count">0</span>
+    </div>
+    <div style="font-size: 0.78rem; color: var(--neutral-500);">
+      💡 Clique em qualquer linha para abrir o <strong>detalhamento completo da RIV</strong>
+    </div>
+  </div>
+
+  <div class="table-scroll-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Número da RIV</th>
+          <th>Fornecedor & CNPJ</th>
+          <th>Status Atual</th>
+          <th>Responsável Atual</th>
+          <th>Próxima Ação</th>
+          <th>SLA da Etapa</th>
+          <th>Data Criação</th>
+          <th>Última Atualização</th>
+        </tr>
+      </thead>
+      <tbody id="riv-table-body">
+        <!-- Renderizado dinamicamente via app.js -->
+      </tbody>
+    </table>
+  </div>
+</div>

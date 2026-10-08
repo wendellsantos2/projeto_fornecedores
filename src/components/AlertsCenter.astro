@@ -1,0 +1,22 @@
+---
+// AlertsCenter.astro - Central de Alertas & Gestão de Gargalos
+---
+
+<div id="view-alerts-container" class="hidden">
+  <div style="margin-bottom: 1.25rem;">
+    <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--neutral-800);">Central de Alertas Operacionais & Gargalos</h2>
+    <p style="font-size: 0.8rem; color: var(--neutral-500);">
+      Monitoramento proativo para evitar atrasos no fluxo de compras, dependências individuais e documentações pendentes.
+    </p>
+  </div>
+
+  <div class="alerts-grid" id="view-alerts-grid">
+    <!-- Renderizado dinamicamente via app.js -->
+  </div>
+</div>
+
+<style>
+  .hidden {
+    display: none !important;
+  }
+</style>

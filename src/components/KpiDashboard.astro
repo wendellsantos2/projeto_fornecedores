@@ -1,0 +1,138 @@
+---
+// KpiDashboard.astro - Painel de Indicadores Executivos
+---
+
+<!-- Critical SLA Alert Notification Banner -->
+<div class="sla-alert-banner" id="sla-alert-banner" style="display: none;">
+  <div class="sla-alert-banner-left">
+    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
+    <div>
+      <div class="sla-alert-title" id="sla-alert-banner-text">
+        Alerta de SLA Vencido: Existem cadastros com atraso crítico que requerem ação imediata.
+      </div>
+      <div class="sla-alert-desc">
+        Identifique os responsáveis e destrave as pendências para evitar parada no fluxo de fornecimento.
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-white btn-sm" onclick="window.supplierFlowApp.openRivDetail('RIV-2026-0041')" style="color: #be123c; border-color: #fecdd3;">
+    Ver Processo Crítico ➔
+  </button>
+</div>
+
+<!-- Executive Metrics Cards Grid -->
+<section class="kpi-grid" aria-label="Indicadores Chave de Desempenho">
+  <!-- 1. Total de Cadastros -->
+  <div class="kpi-card kpi-total" data-kpi="total" title="Clique para ver todos os cadastros">
+    <div class="kpi-card-header">
+      <span class="kpi-title">Total Cadastros</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" id="kpi-total-val">0</div>
+      <div class="kpi-subtext" style="color: var(--primary-600);">Visão Geral</div>
+    </div>
+  </div>
+
+  <!-- 2. Cadastros em Andamento -->
+  <div class="kpi-card kpi-andamento" data-kpi="andamento" title="Clique para filtrar em andamento">
+    <div class="kpi-card-header">
+      <span class="kpi-title">Em Andamento</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" id="kpi-andamento-val">0</div>
+      <div class="kpi-subtext" style="color: #0369a1;">No Pipeline</div>
+    </div>
+  </div>
+
+  <!-- 3. Cadastros Concluídos -->
+  <div class="kpi-card kpi-concluido" data-kpi="concluido" title="Clique para filtrar concluídos">
+    <div class="kpi-card-header">
+      <span class="kpi-title">Concluídos</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" id="kpi-concluidos-val">0</div>
+      <div class="kpi-subtext" style="color: var(--success-text);">Homologados</div>
+    </div>
+  </div>
+
+  <!-- 4. Cadastros Atrasados (SLA Vencido) -->
+  <div class="kpi-card kpi-atrasado" data-kpi="atrasado" title="Clique para filtrar atrasados">
+    <div class="kpi-card-header">
+      <span class="kpi-title" style="color: var(--danger-text);">SLA Atrasados</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" style="color: var(--danger-solid);" id="kpi-atrasados-val">0</div>
+      <div class="kpi-subtext" style="color: var(--danger-text); font-weight: 700;">Ação Imediata</div>
+    </div>
+  </div>
+
+  <!-- 5. Aguardando Compras -->
+  <div class="kpi-card kpi-compras" data-kpi="compras" title="Clique para filtrar aguardando Compras">
+    <div class="kpi-card-header">
+      <span class="kpi-title">Aguard. Compras</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" id="kpi-compras-val">0</div>
+      <div class="kpi-subtext" style="color: var(--dept-compras-text);">Fila Suprimentos</div>
+    </div>
+  </div>
+
+  <!-- 6. Aguardando Financeiro -->
+  <div class="kpi-card kpi-financeiro" data-kpi="financeiro" title="Clique para filtrar aguardando Financeiro">
+    <div class="kpi-card-header">
+      <span class="kpi-title">Aguard. Financeiro</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" id="kpi-financeiro-val">0</div>
+      <div class="kpi-subtext" style="color: var(--dept-fin-text);">Fila Controladoria</div>
+    </div>
+  </div>
+
+  <!-- 7. Aguardando Global -->
+  <div class="kpi-card kpi-global" data-kpi="global" title="Clique para filtrar aguardando Global">
+    <div class="kpi-card-header">
+      <span class="kpi-title">Aguard. Global</span>
+      <div class="kpi-icon-pill">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+    <div class="kpi-card-body">
+      <div class="kpi-value" id="kpi-global-val">0</div>
+      <div class="kpi-subtext" style="color: var(--dept-global-text);">Fila Diretoria</div>
+    </div>
+  </div>
+</section>

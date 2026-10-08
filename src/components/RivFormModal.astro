@@ -1,0 +1,109 @@
+---
+// RivFormModal.astro - Formulário de Criação e Edição de RIV
+---
+
+<div class="modal-backdrop" id="modal-riv-form" role="dialog" aria-modal="true" aria-labelledby="modal-form-title">
+  <div class="modal-dialog">
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <h2 class="modal-title" id="modal-form-title">Cadastro / Edição de RIV</h2>
+      </div>
+      <button class="modal-close-btn" aria-label="Fechar Formulário" title="Fechar">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Form Content -->
+    <form id="form-riv">
+      <input type="hidden" id="form-riv-id" />
+
+      <div class="modal-body">
+        <div class="form-grid">
+          <!-- Razão Social -->
+          <div class="form-group col-span-2">
+            <label class="form-label" for="form-razao-social">Razão Social / Nome da Empresa *</label>
+            <input type="text" id="form-razao-social" class="form-input" placeholder="Ex: TecnoLog Transportes e Logística S.A." required />
+          </div>
+
+          <!-- CNPJ -->
+          <div class="form-group">
+            <label class="form-label" for="form-cnpj">CNPJ *</label>
+            <input type="text" id="form-cnpj" class="form-input" placeholder="00.000.000/0001-00" required />
+          </div>
+
+          <!-- Categoria -->
+          <div class="form-group">
+            <label class="form-label" for="form-categoria">Categoria de Fornecimento</label>
+            <input type="text" id="form-categoria" class="form-input" placeholder="Ex: Tecnologia da Informação, Logística, Facilities" />
+          </div>
+
+          <!-- Etapa / Status Inicial -->
+          <div class="form-group">
+            <label class="form-label" for="form-status">Etapa do Fluxo</label>
+            <select id="form-status" class="form-select">
+              <option value="Cadastro iniciado">Cadastro iniciado</option>
+              <option value="Validação documental">Validação documental</option>
+              <option value="Aprovação Compras">Aprovação Compras</option>
+              <option value="Aprovação Financeira">Aprovação Financeira</option>
+              <option value="Aprovação Global">Aprovação Global</option>
+              <option value="Concluído">Concluído</option>
+            </select>
+          </div>
+
+          <!-- Estimativa de Contratação Anual -->
+          <div class="form-group">
+            <label class="form-label" for="form-valor">Estimativa de Compras Anual</label>
+            <input type="text" id="form-valor" class="form-input" placeholder="Ex: R$ 750.000,00" />
+          </div>
+
+          <!-- Responsável -->
+          <div class="form-group">
+            <label class="form-label" for="form-responsavel">Responsável Interno</label>
+            <input type="text" id="form-responsavel" class="form-input" placeholder="Ex: Carlos Eduardo Rocha" />
+          </div>
+
+          <!-- Área do Responsável -->
+          <div class="form-group">
+            <label class="form-label" for="form-area">Área / Departamento</label>
+            <input type="text" id="form-area" class="form-input" placeholder="Ex: Compras / Suprimentos, Financeiro, Compliance" />
+          </div>
+
+          <!-- Próxima Ação -->
+          <div class="form-group col-span-2">
+            <label class="form-label" for="form-proxima-acao">Próxima Ação Necessária</label>
+            <textarea id="form-proxima-acao" class="form-textarea" placeholder="Descreva a pendência ou ação operacional requerida para avançar a RIV..."></textarea>
+          </div>
+
+          <!-- Contatos Externos -->
+          <div class="form-group">
+            <label class="form-label" for="form-contato-nome">Nome do Contato Comercial</label>
+            <input type="text" id="form-contato-nome" class="form-input" placeholder="Ex: Roberto Albuquerque" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-contato-email">E-mail do Fornecedor</label>
+            <input type="email" id="form-contato-email" class="form-input" placeholder="contato@fornecedor.com.br" />
+          </div>
+
+          <div class="form-group col-span-2">
+            <label class="form-label" for="form-contato-tel">Telefone Comercial / WhatsApp</label>
+            <input type="text" id="form-contato-tel" class="form-input" placeholder="(11) 99999-8888" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-modal-cancel">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" id="btn-save-form">
+          Salvar Dados da RIV
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

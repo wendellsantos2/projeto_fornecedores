@@ -1,0 +1,92 @@
+---
+// index.astro - Página Principal do MVP de Gestão de Cadastro de Fornecedores (RIVs)
+import Header from '../components/Header.astro';
+import KpiDashboard from '../components/KpiDashboard.astro';
+import FilterBar from '../components/FilterBar.astro';
+import RivTable from '../components/RivTable.astro';
+import KanbanView from '../components/KanbanView.astro';
+import AlertsCenter from '../components/AlertsCenter.astro';
+import RivDetailModal from '../components/RivDetailModal.astro';
+import RivFormModal from '../components/RivFormModal.astro';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="SupplierFlow - MVP Funcional para Gestão, Rastreabilidade e Governança do Cadastro e Homologação de Fornecedores (RIVs). Elimine gargalos, monitore SLAs e centralize aprovações." />
+    <meta name="author" content="SupplierFlow Procurement Tech" />
+    <title>SupplierFlow | Gestão & Homologação de Fornecedores (RIV)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'/></svg>" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header Corporativo -->
+      <Header />
+
+      <!-- Conteúdo Principal -->
+      <main class="main-content">
+        <!-- Hero Section com Contexto Executivo -->
+        <header class="page-hero">
+          <div class="page-hero-info">
+            <h1>Gestão de Cadastro & Homologação de Fornecedores</h1>
+            <p>
+              Acompanhamento integrado de Registros de Identificação do Fornecedor (RIVs) com controle rigoroso de SLA e pendências.
+            </p>
+          </div>
+          <div class="hero-meta">
+            <span><span class="status-dot-live"></span> Sistema Operacional Ativo</span>
+            <span>•</span>
+            <span id="current-date-indicator">Outubro de 2026</span>
+          </div>
+        </header>
+
+        <!-- Painel de KPIs Executivos (7 Métricas Chave + Alerta de SLA) -->
+        <KpiDashboard />
+
+        <!-- Barra de Busca Rápida e Filtros -->
+        <FilterBar />
+
+        <!-- Visão 1: Consulta de RIVs (Tabela Detalhada com Colunas Obrigatórias) -->
+        <RivTable />
+
+        <!-- Visão 2: Fluxo Visual Kanban (6 Etapas Padronizadas) -->
+        <KanbanView />
+
+        <!-- Visão 3: Central de Alertas Críticos (SLA Vencido, Gargalos e Pendências) -->
+        <AlertsCenter />
+      </main>
+
+      <!-- Modal de Detalhamento da RIV (Stepper, Timeline, Checklist e SLA) -->
+      <RivDetailModal />
+
+      <!-- Modal de Criação / Edição de Fornecedores -->
+      <RivFormModal />
+
+      <!-- Container de Mensagens Toast -->
+      <div id="toast-container" class="toast-container" aria-live="polite"></div>
+    </div>
+
+    <!-- Script de Inicialização da Aplicação Reativa -->
+    <script>
+      import { initApp } from '../scripts/app.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initApp();
+
+        // Atualizar indicador de data
+        const dateEl = document.getElementById('current-date-indicator');
+        if (dateEl) {
+          const hoje = new Date();
+          const mes = hoje.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+          dateEl.textContent = mes.charAt(0).toUpperCase() + mes.slice(1);
+        }
+      });
+    </script>
+  </body>
+</html>

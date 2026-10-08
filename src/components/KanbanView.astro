@@ -1,0 +1,22 @@
+---
+// KanbanView.astro - Visão de Pipeline / Fluxo Visual de 6 Etapas
+---
+
+<div id="view-kanban-container" class="hidden">
+  <div style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+    <div>
+      <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--neutral-800);">Pipeline de Homologação em 6 Etapas</h2>
+      <p style="font-size: 0.8rem; color: var(--neutral-500);">Acompanhe a distribuição dos fornecedores ao longo de todo o ciclo de onboarding.</p>
+    </div>
+  </div>
+
+  <div class="kanban-board" id="view-kanban-board">
+    <!-- Renderizado dinamicamente via app.js -->
+  </div>
+</div>
+
+<style>
+  .hidden {
+    display: none !important;
+  }
+</style>
